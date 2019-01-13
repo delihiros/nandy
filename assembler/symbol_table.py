@@ -37,12 +37,9 @@ class SymbolTable:
         return out
 
     def add_var(self, symbol, address):
+        print(symbol, address, self.get(symbol))
         if not self.get(symbol):
-            if symbol.token_type == tokenizer.TokenType.VarSymbol:
-                self.table[symbol.value] = self.var_address
-                self.var_address += 1
-            elif symbol.token_type == tokenizer.TokenType.LabelSymbol:
-                self.table[symbol.value] = address
+            self.table[symbol.value] = address
 
     def get(self, symbol):
         if symbol.value in ['A', 'D', 'M']:
@@ -53,9 +50,9 @@ class SymbolTable:
 
     def generate(self, parsed_lines):
         for ast in parsed_lines:
-            if ast.op_type == parser.OpType.Label:
+            if ast.op_type == parser.OpType.L:
                 self.add_var(ast.additionals, ast.address)
-            elif ast.op_type == parser.OpType.Assign:
-                for c in ast.comp:
-                    self.add_var(c, ast.address)
-                self.add_var(ast.dest, ast.address)
+        for ast in parsed_lines:
+            if ast.op_type == parser.OpType.A:
+                self.add_var(ast.additionals, self.var_address)
+                self.var_address += 1

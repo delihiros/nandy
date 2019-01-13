@@ -7,19 +7,15 @@ import generator
 
 class Assembler:
     def assemble(self, asms):
-
         self.tokenizer = tokenizer.Tokenizer()
         token_lines = [self.tokenizer.tokenize(asm) for asm in asms]
         self.parser = parser.Parser()
         parsed_lines = self.parser.parse(token_lines)
-        for t, p in zip(token_lines, parsed_lines):
-            print([c.value for c in t])
-            print(p)
         self.symbol_table = symbol_table.SymbolTable()
         self.symbol_table.generate(parsed_lines)
-        print(self.symbol_table)
-        # self.generator = generator.Generator(self.symbol_table)
-        # codes = self.generator.generate(parsed_lines)
+        self.generator = generator.Generator()
+        codes = self.generator.generate(parsed_lines, self.symbol_table)
+        return codes
 
 
     def assemble_file(self, asm_filename):

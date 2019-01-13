@@ -3,7 +3,7 @@ import tokenizer
 
 class SymbolTable:
     def __init__(self):
-        self.var_address = 1024 # 0x0010
+        self.var_address = 16 # 0x0010
         self.table = {
             'SP': 0,
             'LCL': 1,
@@ -37,7 +37,6 @@ class SymbolTable:
         return out
 
     def add_var(self, symbol, address):
-        print(symbol, address, self.get(symbol))
         if not self.get(symbol):
             self.table[symbol.value] = address
 

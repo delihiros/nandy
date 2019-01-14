@@ -76,7 +76,7 @@ class Generator:
         if ast.op_type == parser.OpType.Comment:
             return None
         elif ast.op_type == parser.OpType.A:
-            return '0b0{:015b}'.format(self.symbol_table.get(ast.additionals))
+            return int('0b{:016b}'.format(self.symbol_table.get(ast.additionals)), 2)
 
         elif ast.op_type == parser.OpType.C:
             return int('0b111'

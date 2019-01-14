@@ -17,14 +17,24 @@ class Assembler:
         codes = self.generator.generate(parsed_lines, self.symbol_table)
         return codes
 
-
     def assemble_file(self, asm_filename):
         asms = []
         with open(asm_filename, 'r') as f:
             for line in f:
                 asms.append(line)
-        self.assemble(asms)
+        return self.assemble(asms)
 
 
-assembler = Assembler()
-assembler.assemble_file('./test.nandy')
+
+def __main__():
+    assembler = Assembler()
+    codes = assembler.assemble_file(sys.argv[1])
+    print(codes)
+    with open('out.bin', 'w') as f:
+        for code in codes:
+            if code:
+                f.write(str(bin(code))[2:] + '\n')
+
+
+if __name__ == '__main__':
+    __main__()

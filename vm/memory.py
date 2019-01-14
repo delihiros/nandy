@@ -22,13 +22,13 @@ class Keyboard:
 
 class Memory:
     def __init__(self):
-        size = 0x6000
-        self._memory = [0] * size
+        self.size = 0x6000
+        self._memory = [0] * self.size
         self.screen = Screen()
         self.keyboard = Keyboard()
 
     def invoke(self, in16, load, address15):
-        if address15 > size:
+        if address15 > self.size:
             return
         elif 0x4000 <= address15 and address15 <= 0x5FFF:
             address13 = bit.extract(address15, 0, 12)

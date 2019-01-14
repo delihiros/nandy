@@ -22,7 +22,7 @@ class CPU:
             jump = bit.extract(op, 0, 2) # jjj
             return {'op_type': op_type, 'comp': comp, 'dest': dest, 'jump': jump}
 
-    def compute(comp):
+    def compute(self, comp):
         if comp == 0b0101010:
             return 0
         elif comp == 0b0111111:
@@ -77,21 +77,21 @@ class CPU:
             return self.data_register | self.bus.read(self.addressing_register)
 
     def jmp(self, jump, result):
-        if jmp == 0b000:
+        if jump == 0b000:
             self.pc += 1
-        elif jmp == 0b001 and result > 0:
+        elif jump == 0b001 and result > 0:
             self.pc = self.addressing_register
-        elif jmp == 0b010 and result == 0:
+        elif jump == 0b010 and result == 0:
             self.pc = self.addressing_register
-        elif jmp == 0b011 and result >= 0:
+        elif jump == 0b011 and result >= 0:
             self.pc = self.addressing_register
-        elif jmp == 0b100 and result < 0:
+        elif jump == 0b100 and result < 0:
             self.pc = self.addressing_register
-        elif jmp == 0b101 and result != 0:
+        elif jump == 0b101 and result != 0:
             self.pc = self.addressing_register
-        elif jmp == 0b110 and result <= 0:
+        elif jump == 0b110 and result <= 0:
             self.pc = self.addressing_register
-        elif jmp == 0b111:
+        elif jump == 0b111:
             self.pc = self.addressing_register
         else:
             self.pc += 1
@@ -113,4 +113,5 @@ class CPU:
     def step(self):
         op = self.fetch()
         decoded = self.decode(op)
-        self.execute(decoded)
+        result = self.execute(decoded)
+        print('0b{:016b}'.format(op, 2), decoded, self.pc)

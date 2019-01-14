@@ -3,7 +3,7 @@ class ROM32K:
         self.size = 32000
         self._memory = [0] * self.size
 
-    def load_rom(self, rom_file):
+    def load(self, rom_file):
         # pretend that the rom_file contains 16 bit op per line as a digit such as 0101010101010101
         with open(rom_file, 'r') as f:
             for idx, b in enumerate(f):

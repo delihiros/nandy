@@ -17,6 +17,10 @@ def is_space(c):
     return c in [' ', '\t', ',', '\n']
 
 
+def is_symbol(c):
+    return c in ['$', '_', '.']
+
+
 class TokenType(enum.Enum):
     Number = 0
     VarSymbol = 1
@@ -58,7 +62,7 @@ class Tokenizer:
                 tokens.append(Token(TokenType.Number, int(num)))
             elif is_alpha(self.code[self.idx]):
                 symbol = ''
-                while self.idx < self.max_idx and (is_alpha(self.code[self.idx]) or is_num(self.code[self.idx])):
+                while self.idx < self.max_idx and (is_alpha(self.code[self.idx]) or is_num(self.code[self.idx]) or is_symbol(self.code[self.idx])):
                     symbol += self.code[self.idx]
                     self.idx += 1
                 tokens.append(Token(TokenType.VarSymbol, symbol))

@@ -32,8 +32,8 @@ def __main__():
     print(codes)
     with open('out.bin', 'w') as f:
         for code in codes:
-            if code:
-                f.write(str(bin(code))[2:] + '\n')
+            if code != None:
+                f.write('{:016b}\n'.format(code, 2))
 
 
 if __name__ == '__main__':

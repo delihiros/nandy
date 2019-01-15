@@ -18,7 +18,7 @@ class Computer:
 
     def step(self):
         self.cpu.step()
-
+        print(self.cpu.pc, self.memory._memory[:16], 'D', self.cpu.data_register, 'A', self.cpu.addressing_register)
 
 def __main__():
     computer = Computer()

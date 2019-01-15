@@ -43,6 +43,8 @@ class Parser:
         #          | comp ';' jump
         #          | dest = comp
         #          | dest = comp ';' jump
+        if len(tokens) == 0:
+            return Op(OpType.Comment, None, None, None, None)
 
         head = tokens[0]
         self.tokens = [tok for tok in tokens if tok.token_type != tokenizer.TokenType.Comment]
